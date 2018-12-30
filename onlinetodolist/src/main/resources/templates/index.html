@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/css/main.css" />
+<title th:text="Hello...."></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h4>TO DO List</h4>
+				<div class="table-responsive">
+					<table id="mytable" class="table table-bordred table-striped">
+						<thead>
+							<th><input type="checkbox" id="checkall" /></th>
+							<th>Task Id</th>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Last Updated</th>
+							<th>Status</th>
+							
+							<th>Delete</th>
+						</thead>
+						<tbody>
+							<tr th:each="task, rowStat: ${tasks}">
+							<td>
+							
+									<input type="checkbox" class="checkthis" th:checked=${task.completed}/>
+								</td>
+								<td th:text="${task.id}"></td>
+								<td th:text="${task.title}"></td>
+								<td th:text="${task.description}"></td>
+								<td th:text=${task.lastupdated}></td>
+								<td><p>
+										<a th:unless=${task.completed} th:href="@{/updatetask(id=${task.id})}" class="btn btn-primary">complete</a>
+									</p></td>
+								<td><p>
+										<a th:href="@{/deletetask(id=${task.id})}" class="btn btn-danger">Delete</a>
+									</p></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+		</div>
+<button class="btn btn-primary" data-toggle="modal" data-target="#add" >Add Task</button>
+
+		<div class="modal fade" id="add" tabindex="-1" role="dialog"
+			aria-labelledby="edit" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+						<h4 class="modal-title custom_align" id="Heading">Add Task</h4>
+					</div>
+					<div class="modal-body">
+						<form action="#" th:action="@{/customtask}" th:object="${customtask}"
+							method="post">
+							<div class="form-group">
+								<label for="title">Title</label> <input type="text"
+									class="form-control" placeholder="Enter Title" id="title"
+									th:field="*{title}" />
+							</div>
+							<div class="form-group">
+								<label for="descrition">Description</label> <input type="text"
+									class="form-control" placeholder="Enter description"
+									id="description" th:field="*{description}" />
+							</div>
+							<button type="submit" class="btn btn-primary" name="action" value="save">
+							<span class="glyphicon glyphicon-ok-sign"></span>Add task</button>
+							<button type="cancel" class="btn btn-primary" name="action" value="cancel">
+							<span class="glyphicon glyphicon-ok-sign"></span>cancel</button>
+						</form>
+
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+
+		</div>
+</body>
+</html>
