@@ -43,7 +43,7 @@ public class OnlineToDoListController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index() {
-		return "redirect:/customtask";
+		return "login";
 	}
 
 	@RequestMapping(value = "/customtask", method = RequestMethod.GET)
